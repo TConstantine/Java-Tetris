@@ -149,4 +149,43 @@ public class GameModelTest {
     
     assertThat(model.getCurrentPiece()[0].getKey().y, is(y + 1));
   }
+  
+  @Test
+  public void givenGameIsPaused_whenMovingPieceLeft_thenPieceDoesNotMoveLeft() {
+    final Piece currentPiece = new PieceI();
+    final int x = currentPiece.getPiece()[0].getX();
+    when(mockPieceGenerator.generate()).thenReturn(currentPiece);
+    model.startNewGame();
+    model.pauseGame();
+    
+    model.movePieceLeft();
+    
+    assertThat(model.getCurrentPiece()[0].getKey().x, is(x));
+  }
+  
+  @Test
+  public void givenCollisionIsDetected_whenMovingPieceLeft_thenPieceDoesNotMoveLeft() {
+    final Piece currentPiece = new PieceI();
+    final int x = currentPiece.getPiece()[0].getX();
+    when(mockPieceGenerator.generate()).thenReturn(currentPiece);
+    when(mockCollisionDetector.canPieceMoveLeft(any(), any())).thenReturn(false);
+    model.startNewGame();
+    
+    model.movePieceLeft();
+    
+    assertThat(model.getCurrentPiece()[0].getKey().x, is(x));
+  }
+  
+  @Test
+  public void givenGameIsRunningAndCollisionIsNotDetected_whenMovingPieceLeft_thenPieceMovesLeft() {
+    final Piece currentPiece = new PieceI();
+    final int x = currentPiece.getPiece()[0].getX();
+    when(mockPieceGenerator.generate()).thenReturn(currentPiece);
+    when(mockCollisionDetector.canPieceMoveLeft(any(), any())).thenReturn(true);
+    model.startNewGame();
+    
+    model.movePieceLeft();
+    
+    assertThat(model.getCurrentPiece()[0].getKey().x, is(x - 1));
+  }
 }
