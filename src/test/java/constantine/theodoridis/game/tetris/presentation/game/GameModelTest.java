@@ -15,6 +15,7 @@ import static org.mockito.ArgumentMatchers.any;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
@@ -226,5 +227,42 @@ public class GameModelTest {
     model.movePieceRight();
     
     assertThat(model.getCurrentPiece()[0].getKey().x, is(x + 1));
+  }
+  
+  @Test
+  public void givenGameIsPaused_whenRotatingPiece_thenPieceDoesNotRotate() {
+    final Piece currentPiece = new PieceI();
+    model.startNewGame();
+    model.pauseGame();
+    
+    model.rotatePiece();
+    
+    verify(mockCollisionDetector, never()).canPieceMoveRight(currentPiece, mockBoard);
+  }
+  
+  @Test
+  public void givenCollisionIsDetected_whenRotatingPiece_thenPieceDoesNotRotate() {
+    final Piece currentPiece = new PieceI();
+    final int rotation = currentPiece.getRotation();
+    when(mockPieceGenerator.generate()).thenReturn(currentPiece);
+    when(mockCollisionDetector.canPieceRotate(any(), any())).thenReturn(false);
+    model.startNewGame();
+    
+    model.rotatePiece();
+    
+    assertThat(currentPiece.getRotation(), is(rotation));
+  }
+  
+  @Test
+  public void givenCollisionIsNotDetected_whenRotatingPiece_thenPieceRotates() {
+    final Piece currentPiece = new PieceI();
+    final int rotation = currentPiece.getRotation();
+    when(mockPieceGenerator.generate()).thenReturn(currentPiece);
+    when(mockCollisionDetector.canPieceRotate(any(), any())).thenReturn(true);
+    model.startNewGame();
+    
+    model.rotatePiece();
+    
+    assertThat(currentPiece.getRotation(), is(rotation + 1));
   }
 }
