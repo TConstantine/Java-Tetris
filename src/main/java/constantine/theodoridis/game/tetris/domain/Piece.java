@@ -1,6 +1,5 @@
 package constantine.theodoridis.game.tetris.domain;
 
-import constantine.theodoridis.game.tetris.domain.Block;
 import java.awt.Color;
 
 public abstract class Piece {
