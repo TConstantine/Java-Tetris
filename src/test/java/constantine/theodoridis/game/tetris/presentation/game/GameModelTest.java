@@ -265,4 +265,17 @@ public class GameModelTest {
     
     assertThat(currentPiece.getRotation(), is(rotation + 1));
   }
+  
+  @Test
+  public void givenGameIsPausedAndUnpaused_whenRotatingPiece_thenCollisionDetectorIsCalled() {
+    final Piece currentPiece = new PieceI();
+    when(mockPieceGenerator.generate()).thenReturn(currentPiece);
+    model.startNewGame();
+    model.pauseGame();
+    model.pauseGame();
+    
+    model.rotatePiece();
+    
+    verify(mockCollisionDetector).canPieceRotate(currentPiece, mockBoard);
+  }
 }
