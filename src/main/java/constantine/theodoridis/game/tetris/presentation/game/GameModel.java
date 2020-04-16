@@ -138,10 +138,10 @@ public class GameModel implements GameContract.Model {
 
   private void rotatePiece(Piece piece) {
     final int rotation = piece.getRotation();
-    piece.setRotation();
+    piece.rotate();
     if (!collisionDetector.canPieceRotate(piece, board)) {
       while (piece.getRotation() != rotation) {
-        piece.setRotation();
+        piece.rotate();
       }
     }
   }

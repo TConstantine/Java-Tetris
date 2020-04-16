@@ -127,7 +127,7 @@ public class CollisionDetectorTest {
   @Test
   public void givenPieceOnLeftBoundary_whenCheckingIfPieceCanRotate_thenReturnFalse() {
     piece.movePieceDown();
-    piece.setRotation();
+    piece.rotate();
     piece.movePieceLeft();
     piece.movePieceLeft();
     piece.movePieceLeft();
@@ -143,7 +143,7 @@ public class CollisionDetectorTest {
   @Test
   public void givenPieceOnRightBoundary_whenCheckingIfPieceCanRotate_thenReturnFalse() {
     piece.movePieceDown();
-    piece.setRotation();
+    piece.rotate();
     piece.movePieceRight();
     piece.movePieceRight();
     piece.movePieceRight();
@@ -165,7 +165,7 @@ public class CollisionDetectorTest {
     final Piece secondPiece = new PieceI();
     secondPiece.movePieceDown();
     secondPiece.movePieceDown();
-    secondPiece.setRotation();
+    secondPiece.rotate();
 
     final boolean canRotate = collisionDetector.canPieceRotate(secondPiece, board);
 

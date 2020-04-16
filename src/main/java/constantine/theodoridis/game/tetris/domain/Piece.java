@@ -42,5 +42,5 @@ public abstract class Piece {
     }
   }
 
-  public abstract void setRotation();
+  public abstract void rotate();
 }

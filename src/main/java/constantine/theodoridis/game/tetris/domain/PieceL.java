@@ -17,7 +17,7 @@ public class PieceL extends Piece {
   }
 
   @Override
-  public void setRotation() {
+  public void rotate() {
     switch (this.rotation) {
       case 0: {
         this.piece[0].setPosition(1, -1);

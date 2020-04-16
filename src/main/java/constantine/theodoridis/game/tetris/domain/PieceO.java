@@ -17,6 +17,6 @@ public class PieceO extends Piece {
   }
 
   @Override
-  public void setRotation() {
+  public void rotate() {
   }
 }
